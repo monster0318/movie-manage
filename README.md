@@ -170,7 +170,7 @@ cd movie-manage
 If you're using npm:
 
 ```bash
-npm install
+npm install --legacy-peer-deps  # because swagger-jsdoc latest version is compatible with only react 18 not 19
 ```
 
 Or, if you're using Yarn:
