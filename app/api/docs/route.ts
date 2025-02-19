@@ -1,10 +1,13 @@
-// app/api/docs/route.ts
-
 import { NextResponse } from "next/server";
 import swaggerJSDoc from "swagger-jsdoc";
-import swaggerSpec from "@/lib/swagger"; // Your Swagger config file
+import swaggerSpec from "@/lib/swagger";
 
 export async function GET() {
-  const spec = swaggerJSDoc(swaggerSpec);
-  return NextResponse.json(spec);
+  try {
+    const spec = swaggerJSDoc(swaggerSpec); 
+    return NextResponse.json(spec);
+  } catch (error) {
+    const err = error as Error; // ✅ Typecast error to Error
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
 }

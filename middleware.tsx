@@ -6,7 +6,6 @@ import { routing } from "./i18n/routing";
 const intlMiddleware = createMiddleware(routing);
 
 export async function middleware(req: any) {
-  console.log("NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET);
   const intlResponse = await intlMiddleware(req);
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const protectedRoutes = ["/movies", "/movies/add", "/movies/edit"];
