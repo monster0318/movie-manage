@@ -65,6 +65,7 @@ export default function Login() {
         email,
         password,
       });
+      console.log(await (response))
       if (response?.ok) {
         setUser({email});
         if (rememberMe) {
