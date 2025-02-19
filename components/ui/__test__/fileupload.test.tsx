@@ -1,6 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import FileUpload from '../fileupload'; // Adjust the import based on your project structure
-import { useTranslations } from 'next-intl';
 import '@testing-library/jest-dom'; // Import jest-dom for toBeInTheDocument
 
 // Mock the translation function

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import '@testing-library/jest-dom';

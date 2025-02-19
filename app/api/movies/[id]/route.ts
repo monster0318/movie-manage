@@ -1,6 +1,7 @@
 // app/api/movies/[id]/route.ts
-import { NextResponse } from "next/server";
+import { NextResponse  } from "next/server";
 import prisma from "@/lib/prisma";
+import type { NextRequest } from "next/server";
 
 /**
  * @swagger
@@ -111,16 +112,26 @@ import prisma from "@/lib/prisma";
  * @param {Object} params - The URL parameters, including the `id` of the movie to update.
  * @returns {NextResponse} - Returns the updated movie details or an error message if something went wrong.
  */
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
-  const { title, year, imgUrl } = await req.json();
 
-  const updatedMovie = await prisma.movie.update({
-    where: { id: params.id },
-    data: { title, year, imgUrl },
-  });
 
-  return NextResponse.json(updatedMovie);
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const id = (await params).id
+
+    const { title, year, imgUrl } = await req.json();
+
+    const updatedMovie = await prisma.movie.update({
+      where: { id }, // ✅ Ensure `id` is used correctly
+      data: { title, year, imgUrl },
+    });
+
+    return NextResponse.json(updatedMovie, { status: 200 });
+  } catch (error) {
+    console.error("Error updating movie:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
 }
+
 
 /**
  * @swagger
@@ -129,8 +140,9 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
  * @param {Object} params - The URL parameters, including the `id` of the movie to delete.
  * @returns {NextResponse} - Returns a success message if the movie is deleted, or an error message if something went wrong.
  */
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  await prisma.movie.delete({ where: { id: params.id } });
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const id = (await params).id
+  await prisma.movie.delete({ where: { id } });
 
   return NextResponse.json({ message: "Movie deleted" });
 }

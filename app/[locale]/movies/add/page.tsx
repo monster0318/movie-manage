@@ -11,9 +11,8 @@ import { useRouter, useParams } from "next/navigation";
 import { useStore } from "@/store/useStore";
 import useWindowResize from "@/hooks/useWindowResize";
 import { createMovieSchema } from "@/lib/zod";
-import Movie from "../page";
 
-export default function EditMovie(isNewItem: boolean, id: number) {
+export default function EditMovie() {
   useWindowResize()
   const router = useRouter();
   const { locale } = useParams();
@@ -48,14 +47,23 @@ export default function EditMovie(isNewItem: boolean, id: number) {
         const data = await res.json();
         imgUrl = data.url;
       } catch (error) {
+        console.log(error)
         toast.error(t('upload_failed'));
         return;
       }
     }
     try{
-      const movieData = { title, year, imgUrl };
+      const movieData = { title, year: Number(year), imgUrl };
+      if (!session?.user?.id) {
+        toast.error(t('not_auth'));
+        router.push( `/${locale}/auth/signin`)
+        return;
+      }
+      
       const res = await addMovie(movieData, session.user.id);
-      toast.success(t('add_success'))
+      if(res)
+          toast.success(t('add_success'))
+      else toast.success(t('add_failed'))
     }
     catch(err){
       console.log(err)

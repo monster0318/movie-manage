@@ -12,7 +12,6 @@ export default function APIDocs() {
         spec={swaggerSpec}
         docExpansion="none" // Options like 'none', 'list', or 'full'
         filter={true} // Allow users to filter the API
-        showRequestHeaders={true}
       />
     </div>
   );

@@ -17,7 +17,7 @@
         "password_length_max":"Password must be less than 32 characters",
         "password_not_match":"Passwords do not match",
         "server_error":"Something went wrong. Please try again.",
-        "invalid_e_p":"Invalid username or password",
+        "invalid_e_p":"Invalid email or password",
         "confirm_require" :"Confirm Password is required",
         "have_account": "Do you already have an account?",
         "not_have_account": "Don't you have an account?"
@@ -40,6 +40,7 @@
         "server_error":"Something went wrong. Please try again.",
         "upload_failed":"File upload failed!",
         "add_success": "Movie added successfully!",
+        "add_failed" : "Movie add failed!",
         "update_failed": "Movie update failed!",
         "delete_failed" : "Movie Delete failed!",
         "confirm_delete" : "Do you really want to delete this item?",
@@ -47,6 +48,7 @@
         "year_require": "Publishing year is required!",
         "invalid_year": "Invalid publishing year!",
         "file_size_exceed": "Too large image file!",
-        "invalid_file_type": "File type must be image/png, image/jpeg"
+        "invalid_file_type": "File type must be image/png, image/jpeg",
+        "not_auth" : "User is not authenticated!"
     }
 }

@@ -4,8 +4,6 @@ import { ToastContainer } from 'react-toastify';
 import { NextIntlClientProvider } from 'next-intl';
 import Login from '../page'; // Adjust path based on your file structure
 import { signIn } from 'next-auth/react';
-import * as nextNavigation from 'next/navigation';
-import { useStore } from '@/store/useStore';
 
 // Mocking next-auth and other dependencies
 jest.mock('next-auth/react', () => ({
