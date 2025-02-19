@@ -46,7 +46,7 @@ const Register = () => {
     setIsLoading(true);
     setError("");
     try {
-      const response = await fetch("/api/auth/register", {
+      const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -113,21 +113,6 @@ const Register = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleRegister()}
                 InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton onClick={togglePasswordVisibility}>
-                        {showPassword ? (
-                          <VisibilityOff
-                            sx={{ color : "#fff" }}
-                          />
-                        ) : (
-                          <Visibility
-                            sx={{ color:  "#fff" }}
-                          />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
                   style: { color:  "#fff", backgroundColor:'#224957', border: 'none' ,height: "45px"},
                 }}
                 InputLabelProps={{
@@ -190,7 +175,7 @@ const Register = () => {
             <Typography className="bes" variant="body2" align="center" sx={{ mt: 0.5 , color: 'gray'}}>
               {t('have_account')}{"  "}
               <a
-                href={`/${locale}/auth/login`}
+                href={`/${locale}/auth/signin`}
                 style={{ color: 'white'}}
               >
                 {t('sign_in')}

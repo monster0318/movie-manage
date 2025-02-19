@@ -2,7 +2,6 @@ import { EditNoteOutlined, DeleteOutlineRounded } from "@mui/icons-material";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { useRouter, useParams } from "next/navigation";
 import { useStore } from "@/store/useStore";
-import { stat } from "fs";
 
 interface CardProp{
   image: string;

@@ -114,6 +114,7 @@ export async function GET() {
     const movies = await prisma.movie.findMany();
     return NextResponse.json(movies);
   } catch (error) {
+    console.log(error);
     return NextResponse.json({ error: "Failed to fetch movies" }, { status: 500 });
   }
 }
@@ -124,9 +125,10 @@ export async function GET() {
  * @param {Request} req - The incoming request containing movie details (title, year, imgUrl, userId).
  * @returns {NextResponse} - Returns the newly created movie object, or an error message if something went wrong.
  */
+
 export async function POST(req: Request) {
   const { title, year, imgUrl, userId } = await req.json();
-  
+
   const newMovie = await prisma.movie.create({
     data: { title, year, imgUrl, userId },
   });

@@ -6,13 +6,14 @@ import { routing } from "./i18n/routing";
 const intlMiddleware = createMiddleware(routing);
 
 export async function middleware(req: any) {
+  console.log("NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET);
   const intlResponse = await intlMiddleware(req);
-  const token = await getToken({ req });
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const protectedRoutes = ["/movies", "/movies/add", "/movies/edit"];
   const { pathname, locale } = req.nextUrl;
   const newlocale = locale || 'en';
   if (protectedRoutes.some((route) => String(pathname).includes(route)) && !token) {
-    const loginUrl = new URL(`${newlocale}/auth/login`, req.nextUrl.origin);
+    const loginUrl = new URL(`${newlocale}/auth/signin`, req.nextUrl.origin);
     return NextResponse.redirect(loginUrl);
   }
 

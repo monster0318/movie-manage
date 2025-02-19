@@ -19,6 +19,7 @@
         "server_error": "Une erreur s'est produite. Veuillez réessayer.",
         "invalid_e_p": "Nom d'utilisateur ou mot de passe invalide",
         "have_account": "Avez-vous déjà un compte?",
+        "confirm_require": "Confirmer le mot de passe est requis",
         "not_have_account": "Vous n'avez pas de compte?"
     },
     "moviePage":{
@@ -46,6 +47,8 @@
         "year_require" : "L'année de publication est obligatoire!",
         "invalid_year": "Année de publication non valide!",
         "file_size_exceed": "Fichier image trop volumineux !", 
-        "type de fichier non valide": "Le type de fichier doit être image/png, image/jpeg"
+        "add_failed" : "L'ajout du film a échoué !",
+        "type de fichier non valide": "Le type de fichier doit être image/png, image/jpeg",
+        "not_auth" : "L'utilisateur n'est pas authentifié !"
     }
 }

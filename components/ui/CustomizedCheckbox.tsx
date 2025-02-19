@@ -75,7 +75,7 @@ export default function CustomizedCheckbox({ onChange }: Props) {
   return (
     <div className='inline-flex items-center m-auto' >
       <BpCheckbox role="checkbox"  onChange={onChange}/>
-      <span className='bs'>{t('remember_me')}</span>
+      <span className='bs text-white'>{t('remember_me')}</span>
     </div>
   );
 }
