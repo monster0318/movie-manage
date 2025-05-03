@@ -1,16 +1,19 @@
 "use client";
+
 import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import { Container, CssBaseline, Button } from "@mui/material";
 import { toast } from "react-toastify";
 
-import FileUpload from "@/components/ui/fileupload";
-import { useMovieStore } from "@/store/movieStore";
 import { useRouter, useParams } from "next/navigation";
 import { useStore } from "@/store/useStore";
 import useWindowResize from "@/hooks/useWindowResize";
 import { createMovieSchema } from "@/lib/zod";
+
+
+import FileUpload from "@/components/ui/fileupload";
+import { useMovieStore } from "@/store/movieStore";
 
 export default function EditMovie() {
   useWindowResize()

@@ -66,7 +66,7 @@ export default function Login() {
         password,
       });
       console.log(await (response))
-      if (response?.ok) {
+      if (response?.ok) {   
         setUser({email});
         if (rememberMe) {
           localStorage.setItem("rememberMe", JSON.stringify({ email, password, rememberMe }));

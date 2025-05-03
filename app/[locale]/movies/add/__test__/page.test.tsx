@@ -17,15 +17,15 @@ jest.mock('next/navigation', () => ({
   useParams: jest.fn(),
 }));
 
+jest.mock('@/store/movieStore', () => ({
+  useMovieStore: jest.fn(),
+}));
+
 jest.mock('react-toastify', () => ({
   toast: {
     error: jest.fn(),
     success: jest.fn(),
   },
-}));
-
-jest.mock('@/store/movieStore', () => ({
-  useMovieStore: jest.fn(),
 }));
 
 const messages = {
