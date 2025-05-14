@@ -89,12 +89,14 @@ export default function Movie() {
     if (!res){
       toast.error(t('delete_failed'));
     }
+    if(pageIdx*8 == movies.length-1 )
+      setPageIdx((prev) => prev-1)
   };
 
   const log_out = () => {
     signOut();
     logout();
-    router.push(`/${locale}/auth/login`);
+    router.push(`/${locale}/auth/signin`);
   }
   
   return (

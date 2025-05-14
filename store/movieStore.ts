@@ -10,7 +10,7 @@ interface Movie {
 interface MovieStore {
   movies: Movie[];
   fetchMovies: () => Promise<void>;
-  addMovie: (movie: Omit<Movie, "id" | "userId">, userId: string) => Promise<void>;
+  addMovie: (movie: Omit<Movie, "id" | "userId">, userId: string) => Promise<boolean>;
   updateMovie: (id: string, updatedMovie: Partial<Movie>) => Promise<boolean>;
   deleteMovie: (id: string) => Promise<boolean>;
 }
@@ -38,7 +38,9 @@ export const useMovieStore = create<MovieStore>((set) => ({
   
     if (res.ok) {
       set((state) => ({ movies: [...state.movies, data] })); // ✅ Add new movie to Zustand store
+      return true;
     }
+    return false
   },
 
   updateMovie: async (id, updatedMovie) => {

@@ -1,7 +1,7 @@
 
 import { object, string , number, union , instanceof as instanceof_} from "zod";
 
-export const createSignInSchema = (t) => 
+export const createSignInSchema = (t: (key: string) => string) => 
   object({
     email: string({ required_error: t('email_require') })
       .min(1, t('email_require'))
@@ -13,7 +13,7 @@ export const createSignInSchema = (t) =>
   });
   
   // Function to create the sign-up schema
-export const createSignUpSchema = (t) => 
+export const createSignUpSchema = (t: (key: string) => string) => 
   object({
     email: string({ required_error: t('email_require') })
       .min(1, t('email_require'))
@@ -29,7 +29,7 @@ export const createSignUpSchema = (t) =>
     path: ["confirmPassword"],
   });
 
-export const createMovieSchema = (t) =>
+export const createMovieSchema = (t: (key: string) => string) =>
   object({
     title: string({ required_error : t('title_require')})
       .min(1, t('title_require')),

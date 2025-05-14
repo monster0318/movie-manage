@@ -5,12 +5,12 @@ import { useSession } from "next-auth/react";
 import { Container, CssBaseline, Button } from "@mui/material";
 import { toast } from "react-toastify";
 
+import useWindowResize from "@/hooks/useWindowResize";
+import { createMovieSchema } from "@/lib/zod";
 import FileUpload from "@/components/ui/fileupload";
 import { useMovieStore } from "@/store/movieStore";
 import { useRouter , useParams} from "next/navigation";
 import { useStore } from "@/store/useStore";
-import useWindowResize from "@/hooks/useWindowResize";
-import { createMovieSchema } from "@/lib/zod";
 
 export default function EditMovie() {
   useWindowResize()
@@ -52,12 +52,13 @@ export default function EditMovie() {
         const data = await res.json();
         imgUrl = data.url;
       } catch (error) {
+        console.log(error)
         toast.error(t('upload_failed'));
         return;
       }
     }
     try{
-      const res = await updateMovie(id, { title, year: Number(year), imgUrl });
+      const res = await updateMovie(String(id), { title, year: Number(year), imgUrl });
       if(res){
         toast.success(t('add_success'))
         router.back()

@@ -94,36 +94,47 @@ import bcrypt from "bcryptjs";
  * @param {Request} req - The incoming request containing user email and password in JSON format.
  * @returns {NextResponse} - Returns a response with a success message and the newly created user, or an error if something went wrong.
  */
+
 export async function POST(req: Request) {
   try {
-    const { email, password } = await req.json();
+    // Parse JSON body safely
+    const body = await req.json().catch(() => null);
+    if (!body || typeof body !== 'object') {
+      return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
+
+    const { email, password } = body;
 
     // Validate input
-    if (!email || !password) {
-      return NextResponse.json({ error: "All fields are required" }, { status: 400 });
+    if (!email || typeof email !== 'string' || !email.includes('@')) {
+      return NextResponse.json({ error: 'Valid email is required' }, { status: 400 });
     }
 
-    // Check if the user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
+    if (!password || typeof password !== 'string' || password.length < 6) {
+      return NextResponse.json({ error: 'Password must be at least 6 characters' }, { status: 400 });
+    }
 
+    // Check if user already exists
+    const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
-      return NextResponse.json({ error: "User already exists" }, { status: 400 });
+      return NextResponse.json({ error: 'User already exists' }, { status: 400 });
     }
 
-    // Hash the password
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create the new user
+    // Create new user
     const newUser = await prisma.user.create({
       data: { email, password: hashedPassword },
     });
 
-    return NextResponse.json({ message: "User created successfully", user: newUser }, { status: 201 });
+    return NextResponse.json({ message: 'User created successfully', user: newUser }, { status: 201 });
 
   } catch (error) {
-    console.error("Signup Error:", error);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    console.error('Signup Error:', error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Something went wrong' },
+      { status: 500 }
+    );
   }
 }

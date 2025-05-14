@@ -52,6 +52,7 @@ export default function Login() {
   }, []);
 
   const handleLogin = async () => {
+    setIsLoading(true)
     const res = await createSignInSchema(t).safeParseAsync({email, password})
     if(!res.success){
       setError(res.error.issues[0].message);
@@ -64,7 +65,8 @@ export default function Login() {
         email,
         password,
       });
-      if (response?.ok) {
+      console.log(await (response))
+      if (response?.ok) {   
         setUser({email});
         if (rememberMe) {
           localStorage.setItem("rememberMe", JSON.stringify({ email, password, rememberMe }));
@@ -79,6 +81,7 @@ export default function Login() {
     } catch (err) {
       console.error("Error during login:", err);
       setError( t('server_error') );
+      throw new Error()
     } finally {
       setIsLoading(false);
     }
@@ -175,14 +178,14 @@ export default function Login() {
             <Typography className="bes" variant="body2" align="center" sx={{ mt: 0.5 , color: 'gray'}}>
                 {t('not_have_account')}{" "}
               <a
-                href={`/${locale}/auth/register`}
+                href={`/${locale}/auth/signup`}
                 style={{ color: 'white'}}
               >
                 {t('sign_up')}
               </a>
             </Typography>
           </Paper>
-        </Container>
+        </Container>  
       </div>
     </>
   );

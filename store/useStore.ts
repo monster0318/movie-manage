@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+
 // Define the store to manage the isMobile state
 interface AppState {
   isMobile: boolean;
