@@ -15,6 +15,7 @@ interface MovieStore {
   deleteMovie: (id: string) => Promise<boolean>;
 }
 
+
 export const useMovieStore = create<MovieStore>((set) => ({
   movies: [],
 
